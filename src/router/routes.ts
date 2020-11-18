@@ -5,7 +5,8 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/EncDec.vue') },
+      { path: 'Base64', component: () => import('pages/Base64.vue') }
     ]
   },
 

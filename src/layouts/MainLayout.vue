@@ -2,74 +2,23 @@
   q-layout(view='lHh Lpr lFf')
     q-header(elevated)
       q-toolbar
-        q-btn(flat, dense, round, icon='menu', aria-label='Menu', @click='leftDrawerOpen = !leftDrawerOpen')
-          q-toolbar-title Quasar App
-          div Quasar v{{ $q.version }}
-
-    q-drawer(v-model='leftDrawerOpen', show-if-above, bordered, content-class='bg-grey-1')
-      q-list
-        q-item-label.text-grey-8(header) Essential Links
-        EssentialLink(v-for='link in essentialLinks', :key='link.title', v-bind='link')
-
+        q-toolbar-title.text-center Simple Crypt
+    
     q-page-container
       router-view
+    
+    q-footer(reveal, elevated)
+      q-toolbar
+        q-tabs(style="margin:auto;")
+          q-tab(icon="lock" label="Encryption")
+          q-tab(icon="code" label="Base64")
+          q-tab(icon="adjust" label="Morse")
+
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue';
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
 import { Vue, Component } from 'vue-property-decorator';
 
-@Component({
-  components: { EssentialLink }
-})
-export default class MainLayout extends Vue {
-  leftDrawerOpen = false;
-  essentialLinks = linksData;
-}
+@Component({})
+export default class MainLayout extends Vue {}
 </script>
