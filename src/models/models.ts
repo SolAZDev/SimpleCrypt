@@ -3,7 +3,7 @@ export interface TransformableBase {
 }
 export interface EncryptableBase {
   message: string;
-  file: string;
+  // file: string;
   password: string;
 }
 
@@ -17,4 +17,9 @@ export interface EncryptedBundle {
   content: string;
   buffer: string;
   key: string;
+}
+
+export interface DropDownSelection {
+  name: string;
+  id: number;
 }

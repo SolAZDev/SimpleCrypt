@@ -7,6 +7,15 @@
                             h6 Results
                         .col-1
                             q-icon(name="close" @click="$emit('close')")
+                q-separator(v-if="password!=''")
+                q-card-section(v-if="password!=''")
+                    .row
+                        .col-11
+                            h6 Content
+                        .col-1
+                            q-icon(name='content_copy' @click="CopyPassword()")
+                        .col-12.codeHolder(style="margin-top:.5rem")
+                            code {{password}}
                 q-separator
                 q-card-section
                     .row
@@ -14,7 +23,7 @@
                             h6 Content
                         .col-1
                             q-icon(name='content_copy' @click="CopyContent()")
-                        .col-12(style="margin-top:.5rem")
+                        .col-12.codeHolder(style="margin-top:.5rem")
                             code {{content}}
 </template>
 script:
@@ -27,11 +36,11 @@ export default class ResultDialog extends Vue {
   @Prop({ type: String, default: '' }) readonly password!: string;
   @Prop({ type: Boolean, required: true, default: false }) show!: boolean;
 
-  CopyPassword() {
-    navigator.clipboard.writeText(this.password);
+  async CopyPassword() {
+    await navigator.clipboard.writeText(this.password);
   }
-  CopyContent() {
-    navigator.clipboard.writeText(this.content);
+  async CopyContent() {
+    await navigator.clipboard.writeText(this.content);
   }
   CloseDialog() {
     this.show = false;
@@ -57,10 +66,14 @@ hr
 .q-icon
     // margin: auto
     width: 100%
-    height: 100%
+
+.codeHolder
+    background: #ddd
+    padding: 5px;
+    border-radius: 5px
 
 code
-    padding: 15px
+    padding: 5px
     margin: 5px
-    background: #cecece
+    word-wrap: anywhere
 </style>
