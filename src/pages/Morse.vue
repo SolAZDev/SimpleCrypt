@@ -5,46 +5,39 @@
                 .col-12
                     q-input(filled v-model='Input.message', type='textarea', label='Message') 
                 .col-12
-                    input#FileUpload(type="file", style="display:none;")
-                    q-btn.w-100(color='primary', icon='file', label='Select File Input.file') 
-                .col-12.col-md-5
-                    q-input(v-model='Input.password', type='password', label='Password') 
-                .col-12.col-md-5
-                    q-select(v-model='SelectedEncryptionType', :options='EncryptionTypes', option-value="id", option-label="name", label='Encryption Cipher', filled)
-                .col-12.col-md-2
-                    q-checkbox( v-model="Decode", label='Decrypt?')
+                    q-checkbox( v-model="Decode", label='Decode?')
                 .col-12
                     q-btn.w-100(color='primary', icon='check', label='Start', @click='StartProcess()') 
             //- div
                 q-btn(label='Submit', type='submit', color='primary')
                     q-btn.q-ml-sm(label='Reset', type='reset', color='primary', flat)
+        
         ResultDialog(:content="Result.message", :show="ShowResults" @close="ShowResults=!ShowResults")
+        
         
 </template>
 <script lang="ts">
-import { log } from 'util';
 import { Vue, Component } from 'vue-property-decorator';
-import { EncryptableBase } from '../models/models';
+import { TransformableBase } from '../models/models';
+import * as MorseHelper from '../utils/morse';
 import ResultDialog from 'components/ResultDialog.vue';
 @Component({
   components: { ResultDialog }
 })
-export default class EncDec extends Vue {
-  Input!: EncryptableBase;
+export default class Morse extends Vue {
+  Input!: TransformableBase;
   Decode = false;
   ShowResults = false;
-  SelectedEncryptionType = null;
-  EncryptionTypes = [
-    { name: 'AED (XCC20)', id: 0 },
-    { name: 'Secret Box', id: 1 }
-    //   {name:"AED (XCC20)", id:0},
-  ];
+  Result: TransformableBase = { message: '' };
   created() {
-    this.Input = { message: '', password: '', file: '' };
+    this.Input = { message: '' };
   }
 
   StartProcess() {
     console.log(this.Input);
+    this.Result = this.Decode
+      ? MorseHelper.ToText(this.Input.message)
+      : MorseHelper.ToMorse(this.Input.message);
     this.ShowResults = true;
   }
 }
